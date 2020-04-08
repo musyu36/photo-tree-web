@@ -4,9 +4,14 @@
       <div class="logo">
         <img src="/images/logo.png" class="w-20 py-2" />
       </div>
-      <img src="/images/camera.svg" class="absolute w-6 post" />
+      <img
+        src="/images/camera.svg"
+        @click="openModal"
+        class="absolute w-6 post"
+      />
     </header>
-    <posts />
+    <!-- ref="posts"でPosts.vueのメソッドを利用できるようにする -->
+    <posts ref="posts" />
   </div>
 </template>
 
@@ -16,6 +21,12 @@ import Posts from "~/components/Posts.vue";
 export default {
   components: {
     Posts,
+  },
+  methods: {
+    //Postsのメソッドを実行
+    openModal() {
+      this.$refs.posts.openModal();
+    },
   },
 };
 </script>
