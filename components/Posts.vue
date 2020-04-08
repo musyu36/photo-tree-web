@@ -3,7 +3,7 @@
     <div class="posts overflow-scroll mb-24">
       <post v-for="(post, index) in posts" :key="index" :post="post" />
     </div>
-    <div v-if="modalVisible" class="modal">
+    <div v-if="modalVisible && isAuthenticated" class="modal">
       <div class="actions mt-4 flex justify-between px-8">
         <div class="back-btn vertical-middle">
           <img
@@ -38,6 +38,20 @@
         </el-input>
       </div>
     </div>
+
+    <div v-else-if="!isAuthenticated && modalVisible" class="modal">
+      <div class="actions mt-4 flex justify-between px-8">
+        <div class="back-btn verical-middle" @click="modalVisible = false">
+          <img src="/images/back.svg" class="h-4" />
+        </div>
+      </div>
+      <div class="modal_content p-8 w-full h-full relative">
+        <div class="flex justify-center">
+          <img src="images/logo.png" class="w-32 my-32" />
+        </div>
+        <el-button size="small" type="primary" @click="login">Login</el-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -55,9 +69,23 @@ export default {
       imageUrl: null,
       text: null,
       modalVisible: false,
+      isAuthenticated: false,
     };
   },
   methods: {
+    login() {
+      //Google認証を使うのでGoogleAuthProvider
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+          this.isAuthenticated = true;
+        })
+        .catch((error) => {
+          window.alert(error);
+        });
+    },
     openModal() {
       this.modalVisible = true;
     },
@@ -105,5 +133,13 @@ export default {
   background-color: white;
   color: black;
   cursor: pointer;
+}
+
+.modal {
+  background: white;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
 }
 </style>
