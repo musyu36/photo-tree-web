@@ -1,19 +1,14 @@
 <template>
   <div>
     <div class="posts overflow-scroll mb-24">
-      <post
-        v-for="(post, index) in posts"
-        :key="index"
-        :post="post.content"
-        :user="post.user"
-        :be-liked="post.beLiked"
-      />
+      <post v-for="(post, index) in posts" :key="index" :post="post" />
     </div>
   </div>
 </template>
 
 <script>
 import Post from "~/components/Post.vue";
+import { db } from "~/plugins/firebase";
 
 export default {
   components: {
@@ -21,31 +16,18 @@ export default {
   },
   data() {
     return {
-      posts: [
-        {
-          user: {
-            displayName: "mimura36",
-            photoURL: "/images/post0.jpg",
-          },
-          content: {
-            text: "恵比寿ナウ",
-            image: "images/post0.jpg",
-          },
-          beLiked: true,
-        },
-        {
-          user: {
-            displayName: "mimura36-2",
-            photoURL: "/images/post1.jpg",
-          },
-          content: {
-            text: "恵比寿ナウ-2",
-            image: "images/post1.jpg",
-          },
-          beLiked: true,
-        },
-      ],
+      posts: [],
     };
+  },
+  mounted() {
+    //postsコレクションの内容をthis.postsに格納していく
+    db.collection("posts")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          this.posts.push(doc.data());
+        });
+      });
   },
 };
 </script>

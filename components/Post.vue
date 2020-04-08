@@ -29,7 +29,16 @@
 <script>
 export default {
   //propsでPostsコンポーネントから値受け取り
-  props: ["post", "user", "beLiked"],
+  props: ["post"],
+  data() {
+    return {
+      user: {
+        displayName: "mimura3636",
+        photoURL: "/images/post1.jpg",
+      },
+      beLiked: false,
+    };
+  },
   computed: {
     username() {
       return (
