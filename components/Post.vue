@@ -3,22 +3,40 @@
     <div class="user mb-2 ml-4 flex">
       <div class="avatar mr-3">
         <a>
-          <img src="/images/post1.jpg" class="w-8 h-8 rounded-full" alt="" />
+          <img v-bind:src="user.photoURL" class="w-8 h-8 rounded-full" alt="" />
         </a>
       </div>
       <div class="user-name leading-loose text-sm">
-        <p class="font-bold">mimumimu3636</p>
+        <p class="font-bold">
+          {{ username }}
+        </p>
       </div>
     </div>
     <div class="post-image w-full">
-      <img src="/images/post0.jpg" alt="" />
+      <img v-bind:src="post.image" alt="" />
     </div>
     <div class="actions my-2 ml-4 flex">
-      <img src="/images/heart.svg" class="w-6 mr-3" />
+      <img v-if="beLiked" src="/images/heart_active.svg" class="w-6 mr-3" />
+      <img v-else src="/images/heart.svg" class="w-6 mr-3" />
       <p>0</p>
     </div>
     <div class="message mx-4 text-sm">
-      <p>渋谷なう</p>
+      <p>{{ post.text }}</p>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  //propsでPostsコンポーネントから値受け取り
+  props: ["post", "user", "beLiked"],
+  computed: {
+    username() {
+      return (
+        this.user.displayName.charAt(0).toUpperCase() +
+        this.user.displayName.slice(1)
+      );
+    },
+  },
+};
+</script>
