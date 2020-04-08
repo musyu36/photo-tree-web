@@ -1,20 +1,28 @@
 <template>
-  <div class="container"></div>
+  <div>
+    <header class="flex justify-center border-b border-gray-300">
+      <div class="logo">
+        <img src="/images/logo.png" class="w-20 py-2" />
+      </div>
+      <img src="/images/camera.svg" class="absolute w-6 post" />
+    </header>
+    <posts />
+  </div>
 </template>
 
 <script>
+import Logo from "~/components/Logo.vue";
+import Posts from "~/components/Posts.vue";
 export default {
-  components: {},
+  components: {
+    Posts,
+  },
 };
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+<style scoped>
+.post {
+  top: 12px;
+  right: 10px;
 }
 </style>
