@@ -39,4 +39,32 @@ html {
   flex-direction: column;
   justify-content: center;
 }
+
+.modal {
+  background: white;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+}
+
+.uploaded-image {
+  max-height: 120px;
+}
+
+.post-btn {
+  padding: 4xpx 12px;
+  border-radius: 24px;
+  background-color: black;
+  color: white;
+  font-size: 12px;
+}
+
+.el-upload {
+  width: 100%;
+}
+
+.el-button {
+  width: 100%;
+}
 </style>
