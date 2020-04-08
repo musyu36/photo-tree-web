@@ -20,14 +20,16 @@ export default {
     };
   },
   mounted() {
-    //postsコレクションの内容をthis.postsに格納していく
-    db.collection("posts")
-      .get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) => {
-          this.posts.push(doc.data());
-        });
+    //postsを監視
+    db.collection("posts").onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        const doc = change.doc;
+        //追加された時
+        if (change.type === "added") {
+          this.posts.unshift({ id: doc.id, ...doc.data() });
+        }
       });
+    });
   },
 };
 </script>
