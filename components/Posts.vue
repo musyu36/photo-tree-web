@@ -6,7 +6,11 @@
     <div v-if="modalVisible && isAuthenticated" class="modal">
       <div class="actions mt-4 flex justify-between px-8">
         <div class="back-btn vertical-middle">
-          <img src="/images/back.svg" class="h-4" @click="modalVisible = false" />
+          <img
+            src="/images/back.svg"
+            class="h-4"
+            @click="modalVisible = false"
+          />
         </div>
         <div class="post-btn" @click="post">Post</div>
       </div>
@@ -14,10 +18,21 @@
         <div class="flex justify-center">
           <img :src="imageUrl" class="uploaded-image" alt />
         </div>
-        <el-upload v-if="!imageUrl" action :show-file-list="false" :http-request="uploadFile">
+        <el-upload
+          v-if="!imageUrl"
+          action
+          :show-file-list="false"
+          :http-request="uploadFile"
+        >
           <el-button size="small" type="primary">Click to upload</el-button>
         </el-upload>
-        <el-input type="textarea" :rows="8" placeholder="Please input" class="mt-8" v-model="text"></el-input>
+        <el-input
+          type="textarea"
+          :rows="8"
+          placeholder="Please input"
+          class="mt-8"
+          v-model="text"
+        ></el-input>
       </div>
     </div>
 
@@ -40,7 +55,7 @@
 <script>
 import Post from "~/components/Post.vue";
 import { db, firebase } from "~/plugins/firebase";
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 export default {
   components: {
     Post,
@@ -53,18 +68,18 @@ export default {
       modalVisible: false,
     };
   },
-  computed:{
-    currentUser(){
+  computed: {
+    currentUser() {
       //store/index.js内の情報を返す
-      return this.$store.state.user
+      return this.$store.state.user;
     },
-    isAuthenticated(){
-        return this.$store.getters.isAuthenticated
-    }
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    },
   },
   methods: {
     //actionsであるsetUserメソッドを使用出来るようにする
-    ...mapActions(['setUser']),
+    ...mapActions(["setUser"]),
     login() {
       //Google認証を使うのでGoogleAuthProvider
       const provider = new firebase.auth.GoogleAuthProvider();
@@ -73,7 +88,7 @@ export default {
         .signInWithPopup(provider)
         .then((result) => {
           //ログイン情報を変更
-          this.setUser(result.user)
+          this.setUser(result.user);
         })
         .catch((error) => {
           window.alert(error);

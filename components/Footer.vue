@@ -1,5 +1,7 @@
 <template>
-  <div class="bottom-navigation bg-white flex fixed bottom-0 h-12 w-full border-t border-gray-300">
+  <div
+    class="bottom-navigation bg-white flex fixed bottom-0 h-12 w-full border-t border-gray-300"
+  >
     <div class="nav-item w-1/3 flex justify-center">
       <nuxt-link to="/">
         <img src="/images/home.svg" class="h-6 my-3" />
@@ -20,14 +22,14 @@
 
 <script>
 export default {
-  computed:{
-    currentUser(){
-      return this.$store.state.user
+  computed: {
+    currentUser() {
+      return this.$store.state.user;
     },
-    isAuthenticated(){
-      return this.$store.getters.isAuthenticated
-    }
-  }
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    },
+  },
 };
 </script>
 
