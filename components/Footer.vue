@@ -1,19 +1,17 @@
 <template>
-  <div
-    class="bottom-navigation bg-white flex fixed bottom-0 h-12 w-full border-t border-gray-300"
-  >
+  <div class="bottom-navigation bg-white flex fixed bottom-0 h-12 w-full border-t border-gray-300">
     <div class="nav-item w-1/3 flex justify-center">
       <nuxt-link to="/">
         <img src="/images/home.svg" class="h-6 my-3" />
       </nuxt-link>
     </div>
-    <div class="nav-item w-1/3 flex justify-center">
+    <div v-if="isAuthenticated" class="nav-item w-1/3 flex justify-center">
       <nuxt-link to="/users">
         <img src="/images/plus.svg" class="h-6 my-3" />
       </nuxt-link>
     </div>
-    <div class="nav-item w-1/3 flex justify-center">
-      <nuxt-link to="/users/tekitouid">
+    <div v-if="isAuthenticated" class="nav-item w-1/3 flex justify-center">
+      <nuxt-link :to="`/users/${currentUser.uid}`">
         <img src="/images/user.svg" class="h-6 my-3" />
       </nuxt-link>
     </div>
@@ -21,7 +19,16 @@
 </template>
 
 <script>
-export default {};
+export default {
+  computed:{
+    currentUser(){
+      return this.$store.state.user
+    },
+    isAuthenticated(){
+      return this.$store.getters.isAuthenticated
+    }
+  }
+};
 </script>
 
 <style></style>
