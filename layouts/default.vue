@@ -7,10 +7,25 @@
 
 <script>
 import AppFooter from "~/components/Footer.vue";
+import { firebase } from "~/plugins/firebase"
+import { mapActions } from "vuex"
+
 export default {
   components: {
     AppFooter,
   },
+  methods:{
+    ...mapActions(['setUser'])
+  },
+  mounted(){
+    //firebaseの認証情報が変更された時，これが検知
+    firebase.auth().onAuthStateChanged((user) => {
+      //ログイン時のみsetUserを呼び出す
+      if (user) {
+        this.setUser(user)
+      }
+    })
+  }
 };
 </script>
 
